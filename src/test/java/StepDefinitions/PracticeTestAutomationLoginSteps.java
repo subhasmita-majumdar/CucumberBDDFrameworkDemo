@@ -1,5 +1,6 @@
 package StepDefinitions;
 
+import PageObjects.HomePage;
 import PageObjects.LoginPage;
 import io.cucumber.java.en.*;
 import org.junit.Assert;
@@ -9,10 +10,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class PracticeTestAutomationLoginSteps {
     public WebDriver driver;
     public LoginPage loginPage;
+    public HomePage homePage;
 
     @Given("User launch chrome browser")
     public void user_launch_chrome_browser() {
         driver = new ChromeDriver();
+        homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
     }
     @When("User opens URL {string}")
@@ -39,5 +42,10 @@ public class PracticeTestAutomationLoginSteps {
     @Then("close Browser")
     public void close_browser() {
         driver.close();
+    }
+
+    @Then("User should not be able to login successfully")
+    public void userShouldNotBeAbleToLoginSuccessfully() {
+    Assert.assertEquals("Test Login | Practice Test Automation",homePage.getHomePageTitle());
     }
 }
